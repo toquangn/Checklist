@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 const uri = "mongodb+srv://quang:jtP6TSLDrc6faVh2@checklistdb-pvvyv.mongodb.net/todolistdb?retryWrites=true";
+
 mongoose.connect(uri, {useNewUrlParser: true}, (error) => {
   if (error){
     console.log('Error Connecting: ' + error);
@@ -16,6 +17,23 @@ mongoose.connect(uri, {useNewUrlParser: true}, (error) => {
 router.get('/', (req, res) => {
   res.send('From API route');
 });
+
+function verifyToken(req, res, next){
+  if (!req.headers.authorization){
+    return res.status(401).send('Unauthorized request');
+  }
+  let token = req.headers.authorization.split(' ')[1];
+  if (token == 'null'){
+    return res.status(401).send('Unauthorized request');
+  }
+  let payload = jwt.verify(token, 'secretKey');
+  if (!payload){
+    return res.status(401).send('Unauthorized request');
+  }
+
+  req.userId = payload.subject;
+  next();
+}
 
 router.post('/register', (req, res) =>{
   let userData = req.body;
@@ -55,7 +73,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get('/events', (req, res) => {
+router.get('/events', verifyToken, (req, res) => {
   let events = [
     {
       "_id": "1",
