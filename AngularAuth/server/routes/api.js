@@ -4,7 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
 
-const uri = "mongodb+srv://quang:Qt185475@checklistdb-pvvyv.mongodb.net/todolistdb?retryWrites=true";
+const uri = "mongodb+srv://quang:jtP6TSLDrc6faVh2@checklistdb-pvvyv.mongodb.net/todolistdb?retryWrites=true";
 mongoose.connect(uri, {useNewUrlParser: true}, (error) => {
   if (error){
     console.log('Error Connecting: ' + error);
