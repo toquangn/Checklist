@@ -55,12 +55,12 @@ router.post('/register', (req, res) =>{
 router.post('/login', (req, res) => {
   let userData = req.body;
 
-  User.findOne({email: userData.email}, (error, user) =>{
+  User.findOne({username: userData.username}, (error, user) =>{
     if (error){
       console.log(error);
     } else {
       if (!user){
-        res.status(401).send('Invalid email');
+        res.status(401).send('Invalid username');
       } else {
           if(user.password !== userData.password){
             res.status(401).send('Invalid password');
@@ -96,10 +96,12 @@ router.get('/:user', (req, res) => {
   //QUERYING IS DIFFERENT
   var query  = Todo.where({ user: req.params.user }); // <-- Use the correct param name
 
-  query.find(function (err, employee) {
-        if (err)
-            return res.send(err)
-        res.json(employee);
+  query.find(function (err, userInfo) {
+        if (err){
+          res.status(401).send('User not found: ' + err);
+        } else {
+          res.json(userInfo);
+        }
   });
 });
 
