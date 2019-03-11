@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const Todo = require('../models/todo');
 
 const uri = "mongodb+srv://quang:jtP6TSLDrc6faVh2@checklistdb-pvvyv.mongodb.net/todolistdb?retryWrites=true";
 
@@ -88,6 +89,18 @@ router.get('/events', verifyToken, (req, res) => {
   ]
 
   res.json(events);
+});
+
+// ==== TESTING API FOR TODO COLLECTION ====
+router.get('/:user', (req, res) => {
+  //QUERYING IS DIFFERENT
+  var query  = Todo.where({ user: req.params.user }); // <-- Use the correct param name
+
+  query.find(function (err, employee) {
+        if (err)
+            return res.send(err)
+        res.json(employee);
+  });
 });
 
 module.exports = router;
