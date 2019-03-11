@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
+import { TodoService } from './todo.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 
@@ -30,7 +31,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard, {
+  providers: [AuthService, TodoService, AuthGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
