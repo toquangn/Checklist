@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { EventsComponent } from './events/events.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { TodosComponent } from './todos/todos.component';
+
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -11,6 +13,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
+  },
+  {
+    path: 'todos',
+    component: TodosComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'events',
