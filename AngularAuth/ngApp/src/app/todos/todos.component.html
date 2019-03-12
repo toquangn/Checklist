@@ -18,7 +18,7 @@
   <div class="row pt-5" *ngFor="let item of todos;">
     <div class="col mx-auto">
       <div class="card round-0" style="width:85%">
-        <span class="card-header" style="padding: .15rem" [ngClass]="{
+        <span class="card-header" style="padding: .25rem" [ngClass]="{
             'low' : item.priority == 3,
             'medium' : item.priority == 2,
             'high' : item.priority == 1
