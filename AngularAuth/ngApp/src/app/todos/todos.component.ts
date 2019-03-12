@@ -10,13 +10,22 @@ import { TodoService } from '../todo.service';
 })
 export class TodosComponent implements OnInit {
   user: string;
+  todos = {}
 
-  constructor(private _router: Router, private _route: ActivatedRoute) { }
+  constructor(private _router: Router, private _route: ActivatedRoute, private _todo: TodoService) { }
 
   ngOnInit() {
     this._route.queryParams.subscribe(params => {
       this.user = params.username;
     });
+
+    this._todo.getUserTodos(this.user)
+    .subscribe(
+      res => {
+        this.todos = res;
+      },
+      err => console.log('err: ', err)
+    );
   }
 
 }

@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getUserTodos(username){
+    return this.http.get(`http://localhost:3000/api/${username}`);
+  }
 }

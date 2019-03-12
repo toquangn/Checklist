@@ -1,1 +1,36 @@
-<h3 class="" *ngIf="user">Howdy, {{user}}</h3>
+<div class="row pt-4">
+  <div class="col">
+    <h3 class="" *ngIf="user">Howdy, {{user}}</h3>
+  </div>
+</div>
+
+<div class="row pt-2">
+  <div class="col">
+    <form class="form-inline mr-auto">
+      <input class="form-control mr-sm-2" type="text" placeholder="Todo..." aria-label="Search" style="width:85%;">
+      <button class="btn btn-secondary btn-rounded btn-md my-0" type="submit">Add</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="todos?.length > 0">
+  <div class="row pt-5" *ngFor="let item of todos;">
+    <div class="col mx-auto">
+      <div class="card round-0" style="width:85%">
+        <span class="card-header" style="padding: .35rem" [ngClass]="{
+            'low' : item.priority == 3,
+            'medium' : item.priority == 2,
+            'high' : item.priority == 1
+         }"></span>
+          <div class="card-body">
+            <p class="card-text">{{ item.todo }}</p>
+            <div class="text-right">
+              <button class="btn btn-primary btn-space"><i class="fa fa-check-square" aria-hidden="true"></i> Complete</button>
+              <button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
