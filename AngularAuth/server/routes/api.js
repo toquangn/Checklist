@@ -74,23 +74,6 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get('/events', verifyToken, (req, res) => {
-  let events = [
-    {
-      "_id": "1",
-      "name": "Auto Expo",
-      "description": "lorem ipsum"
-    },
-    {
-      "_id": "2",
-      "name": "Water Park",
-      "description": "wet wet"
-    }
-  ]
-
-  res.json(events);
-});
-
 // ==== TESTING API FOR TODO COLLECTION ====
 router.get('/:user', (req, res) => {
   //QUERYING IS DIFFERENT
@@ -102,6 +85,22 @@ router.get('/:user', (req, res) => {
         } else {
           res.json(userInfo);
         }
+  });
+});
+
+router.post('/:user', (req, res) =>{
+  let userTodo = req.body;
+  let todo = new Todo(userTodo);
+
+  todo.save((error, addedTodo) => {
+    if (error) {
+      console.log('Save Error: ' + error);
+    }
+    else {
+      let payload = {subject: addedTodo._id };
+      let token = jwt.sign(payload, 'secretKey');
+      res.status(200).send({ token, addedTodo });
+    }
   });
 });
 

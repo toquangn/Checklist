@@ -12,4 +12,8 @@ export class TodoService {
   getUserTodos(username){
     return this.http.get(`http://localhost:3000/api/${username}`);
   }
+
+  addTodoItem(username, todo){
+    return this.http.post(`http://localhost:3000/api/${username}`, todo);
+  }
 }
